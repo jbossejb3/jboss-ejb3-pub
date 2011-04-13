@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>5</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jboss.ejb3.pub</groupId>
+    <artifactId>jboss-ejb3-pub</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+
+    <name>JBoss EJB 3 Pub</name>
+    <description>
+        The EJB 3 Pub where we play Pool.
+    </description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Only API dependencies allowed -->
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>${javax.ejb.groupId}</groupId>
+            <artifactId>${javax.ejb.artifactId}</artifactId>
+            <version>${javax.ejb.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>${javax.interceptor.groupId}</groupId>
+            <artifactId>${javax.interceptor.artifactId}</artifactId>
+            <version>${javax.interceptor.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>as6</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!dummy</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.ejb3</groupId>
+                    <artifactId>jboss-ejb3-core</artifactId>
+                    <version>1.7.20</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>ejb3.0</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!dummy</name>
+                </property>
+            </activation>
+            <properties>
+                <javax.ejb.groupId>org.jboss.javaee</javax.ejb.groupId>
+                <javax.ejb.artifactId>jboss-ejb-api</javax.ejb.artifactId>
+                <javax.ejb.version>3.0.0.GA</javax.ejb.version>
+                <javax.interceptor.groupId>org.jboss.interceptor</javax.interceptor.groupId>
+                <javax.interceptor.artifactId>jboss-interceptor-api</javax.interceptor.artifactId>
+                <javax.interceptor.version>1.0</javax.interceptor.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>ejb3.1</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>ejb3.1</name>
+                </property>
+            </activation>
+            <properties>
+                <javax.ejb.groupId>org.jboss.javaee</javax.ejb.groupId>
+                <javax.ejb.artifactId>jboss-ejb-api_3.1</javax.ejb.artifactId>
+                <javax.ejb.version>1.0-alpha-1</javax.ejb.version>
+                <javax.interceptor.groupId>org.jboss.interceptor</javax.interceptor.groupId>
+                <javax.interceptor.artifactId>jboss-interceptor-api</javax.interceptor.artifactId>
+                <javax.interceptor.version>1.1</javax.interceptor.version>
+            </properties>
+        </profile>
+    </profiles>
+</project>
